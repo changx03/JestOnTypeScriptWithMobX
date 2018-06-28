@@ -5,6 +5,8 @@ import BonView from './bonView';
 
 configure({ adapter: new Adapter() });
 
+const INIT_COUNT = 10;
+
 describe('<BonView />', () => {
   let wrapper: ShallowWrapper;
   beforeEach(() => {
@@ -12,12 +14,15 @@ describe('<BonView />', () => {
   });
 
   it('should render 10 list item', () => {
-    expect(wrapper.find('li.list-item')).toHaveLength(10);
+    expect(wrapper.find('li.list-item')).toHaveLength(INIT_COUNT);
   });
 
   it('simulate Add btn onClick event', () => {
-    wrapper.find('button.btn-add').simulate('click');
-    expect(wrapper.find('li.list-item')).toHaveLength(11);
+    const numClicks = 10;
+    for (let i = 0; i < numClicks; i++) {
+      wrapper.find('button.btn-add').simulate('click');
+    }
+    expect(wrapper.find('li.list-item')).toHaveLength(INIT_COUNT + numClicks);
   });
 
   it('should not render div.result', () => {
